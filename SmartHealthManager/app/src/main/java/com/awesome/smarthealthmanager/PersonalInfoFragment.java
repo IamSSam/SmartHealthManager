@@ -7,7 +7,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.Calendar;
@@ -23,7 +22,6 @@ public class PersonalInfoFragment extends Fragment {
     TextView tab1_sex;
     SignUpActivity signUpActivity;
     Button saveButton;
-    ImageView myImage;
     Button btn;
 
     private static final int REQUEST_MICROPHONE = 3;
@@ -58,7 +56,6 @@ public class PersonalInfoFragment extends Fragment {
         tab1_age = (TextView) view.findViewById(R.id.tab1_age);
         tab1_sex = (TextView) view.findViewById(R.id.tab1_sex);
 
-        myImage = (ImageView) view.findViewById(R.id.myImage);
         saveButton = (Button) view.findViewById(R.id.save_button);
 
         saveButton.setOnClickListener(buttonClickListener);

@@ -26,7 +26,7 @@ public class IntroActivity extends AppCompatActivity {
         setContentView(R.layout.activity_intro);
         init();
 
-        handler.postDelayed(runnable, 2000);
+        handler.postDelayed(runnable, 3000);
 
 
 
