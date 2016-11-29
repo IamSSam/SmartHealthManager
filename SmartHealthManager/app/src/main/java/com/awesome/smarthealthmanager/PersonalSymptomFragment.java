@@ -20,7 +20,7 @@ import java.io.InputStream;
  * Created by yoonjae on 29/11/2016.
  */
 
-public class PersonalSymptomFragment extends Fragment implements View.OnClickListener, HttpPostAsyncJson {
+public class PersonalSymptomFragment extends Fragment implements View.OnClickListener {
 
     GridView gridView;
     Button symptom_main_btn1;
@@ -271,12 +271,10 @@ public class PersonalSymptomFragment extends Fragment implements View.OnClickLis
         }
     }
 
-    @Override
     public String POST(String url, Person person) {
         return null;
     }
 
-    @Override
     public String convertInputStreamToString(InputStream inputStream) {
         return null;
     }
