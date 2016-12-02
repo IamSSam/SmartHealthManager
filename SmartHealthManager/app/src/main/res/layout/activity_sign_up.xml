@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:focusable="true"
+    android:background="#FFFFFF"
     android:focusableInTouchMode="true"
     android:orientation="vertical">
 
@@ -17,6 +18,186 @@
         android:paddingTop="16dp"
         tools:context="com.awesome.smarthealthmanager.SignUpActivity">
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <!--  <ImageView
+                      android:layout_width="100dp"
+                      android:layout_height="100dp"
+                      android:layout_gravity="center_vertical|center_horizontal"
+                      android:layout_margin="20dp"
+                      android:src="@drawable/face"/>-->
+
+                <EditText
+                    android:id="@+id/user_account"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:hint="아이디"
+                    android:inputType="textEmailAddress"
+                    android:maxLength="25" />
+
+                <EditText
+                    android:id="@+id/user_password"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:hint="비밀번호(8자 이상)"
+                    android:inputType="textPassword"
+                    android:maxLength="8" />
+
+                <EditText
+                    android:id="@+id/user_compare_password"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:hint="비밀번호 확인"
+                    android:inputType="textPassword"
+                    android:maxLength="15" />
+
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="10dp"></LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <EditText
+                android:id="@+id/user_name"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:hint="이름"
+                android:inputType="text"
+                android:maxLength="10" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/user_man"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/button_selector"
+                    android:backgroundTint="#0293a6"
+                    android:text="남자"
+                    android:textColor="#FFFFFF"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <Button
+                    android:id="@+id/user_woman"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/button_selector"
+                    android:backgroundTint="#0293a6"
+                    android:text="여자"
+                    android:textColor="#FFFFFF"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical|center_horizontal"
+                    android:text="생년월일"
+                    android:textSize="15sp" />
+
+                <EditText
+                    android:id="@+id/user_birth"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:hint="년도(4자)"
+                    android:inputType="number"
+                    android:maxLength="4"
+                    android:textSize="15sp" />
+
+                <Spinner
+                    android:id="@+id/spinner"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_margin="8dp"
+                    android:layout_weight="1.5"
+                    android:entries="@array/month" />
+
+                <EditText
+                    android:id="@+id/user_day"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:hint="일"
+                    android:inputType="number"
+                    android:maxLength="2" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <EditText
+                    android:id="@+id/user_phoneNumber"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:hint="휴대전화 번호('-' 없이 입력해주세요.)"
+                    android:inputType="number"
+                    android:maxLength="12"
+                    android:textSize="15sp" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="150dp">
+
+            <Button
+                android:id="@+id/signUpButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:background="#0293a6"
+                android:text="가입하기"
+                android:textColor="#FFFFFF"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="20dp"></LinearLayout>
 
     </LinearLayout>
 </ScrollView>
