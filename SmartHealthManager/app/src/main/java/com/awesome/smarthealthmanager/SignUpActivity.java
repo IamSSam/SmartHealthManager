@@ -5,6 +5,7 @@ import android.content.res.Resources;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -12,6 +13,22 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
+
+import org.apache.http.HttpResponse;
+import org.apache.http.NameValuePair;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.message.BasicNameValuePair;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.List;
 
 public class SignUpActivity extends AppCompatActivity {
 
@@ -24,10 +41,7 @@ public class SignUpActivity extends AppCompatActivity {
     public EditText day;
     public Spinner spinner;
     private ArrayAdapter<CharSequence> spinnerAdapter = null;
-
     private Button manButton, womanButton;
-
-    //private GoogleApiClient client;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,8 +73,6 @@ public class SignUpActivity extends AppCompatActivity {
                 parent.getItemAtPosition(position);
                 spinner.setOnItemSelectedListener(this);
                 month = month_array[position];
-
-
             }
 
             @Override
@@ -163,5 +175,93 @@ public class SignUpActivity extends AppCompatActivity {
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
         }
+    }
+
+    public String POST(String url) {
+        InputStream inputStream = null;
+        String result = "";
+
+        try {
+            // 1. create HttpClient
+            HttpClient httpclient = new DefaultHttpClient();
+
+            // 2. make POST request to the given URL
+            HttpPost httpPost = new HttpPost(url);
+
+            String json = "";
+
+            // 3. build jsonObject
+            JSONObject jsonObject = new JSONObject();
+            //jsonObject.accumulate("name", person.getName());
+            //jsonObject.accumulate("country", person.getCountry());
+            //jsonObject.accumulate("twitter", person.getTwitter());
+
+            // 4. convert JSONObject to JSON to String
+            json = jsonObject.toString();
+
+            // ** Alternative way to convert Person object to JSON string usin Jackson Lib
+            // ObjectMapper mapper = new ObjectMapper();
+            // json = mapper.writeValueAsString(person);
+
+            List<NameValuePair> nameValuePair = new ArrayList<NameValuePair>(6);
+            nameValuePair.add(new BasicNameValuePair("userid", userId.getText().toString()));
+            nameValuePair.add(new BasicNameValuePair("password", userPwd.getText().toString()));
+            nameValuePair.add(new BasicNameValuePair("name", name.getText().toString()));
+            nameValuePair.add(new BasicNameValuePair("phonenumber", phone.getText().toString()));
+
+            Log.d("monthandday", month + " " + day.getText().toString());
+
+            String monthtmp;
+            if (getMonth().length() == 1) {
+                monthtmp = "0" + getMonth();
+            } else monthtmp = getMonth();
+            String daytmp;
+            if (day.getText().toString().length() == 1) {
+                daytmp = "0" + day.getText().toString();
+            } else daytmp = day.getText().toString();
+            nameValuePair.add(new BasicNameValuePair("birth", birth.getText().toString() + monthtmp + daytmp));
+            String sextmp;
+            if (sex.equals("남자")) sextmp = "1";
+            else sextmp = "0";
+            nameValuePair.add(new BasicNameValuePair("sex", sextmp));
+
+            // 5. set json to StringEntity
+            //StringEntity se = new StringEntity(json);
+
+            // 6. set httpPost Entity
+            httpPost.setEntity(new UrlEncodedFormEntity(nameValuePair, "utf-8"));
+
+            // 7. Set some headers to inform server about the type of the content
+            //httpPost.setHeader("Accept", "application/json");
+            //httpPost.setHeader("Content-type", "application/json");
+
+            // 8. Execute POST request to the given URL
+            HttpResponse httpResponse = httpclient.execute(httpPost);
+
+            // 9. receive response as inputStream
+            inputStream = httpResponse.getEntity().getContent();
+
+            // 10. convert inputstream to string
+            if (inputStream != null)
+                result = convertInputStreamToString(inputStream);
+            else
+                result = "Did not work!";
+
+        } catch (Exception e) {
+            Log.d("InputStream", e.getLocalizedMessage());
+        }
+        Log.d("http", result);
+
+        // 11. return result
+        return result;
+    }
+
+    private static String convertInputStreamToString(InputStream inputStream) throws IOException {
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
+        String line = "", result = "";
+        while ((line = bufferedReader.readLine()) != null)
+            result += line;
+        inputStream.close();
+        return result;
     }
 }
