@@ -82,7 +82,6 @@ public class LoginActivity extends AppCompatActivity {
         ImageLoader.getInstance().init(config);
 
         mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
-
         mPasswordView = (EditText) findViewById(R.id.password);
 
         Button signUpButton = (Button) findViewById(R.id.signUpButton);

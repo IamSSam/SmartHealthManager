@@ -17,7 +17,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <activity android:name=".IntroActivity"
+        <activity
+            android:name=".IntroActivity"
             android:theme="@style/AppTheme_">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -32,10 +33,11 @@
 
         <activity
             android:name=".LoginActivity"
-            android:windowSoftInputMode="stateVisible|adjustPan"
-            android:theme="@style/AppTheme_"/>
+            android:theme="@style/AppTheme_"
+            android:windowSoftInputMode="stateVisible|adjustPan|stateAlwaysHidden" />
 
-        <activity android:name=".SignUpActivity" />
+        <activity android:name=".SignUpActivity"
+            android:windowSoftInputMode="stateVisible|adjustPan|stateAlwaysHidden"/>
 
         <activity android:name=".FindHospitalActivity">
             <intent-filter>
