@@ -14,18 +14,18 @@ import java.net.URLEncoder;
 
 public class FindHospitalActivity extends AppCompatActivity {
 
-    public static boolean FindHospitalViewActive = false;
+    public static boolean findHospitalViewActive = false;
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        this.FindHospitalViewActive = false;
+        this.findHospitalViewActive = false;
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        this.FindHospitalViewActive = true;
+        this.findHospitalViewActive = true;
         setContentView(R.layout.activity_find_hospital);
 
         WebView webView = (WebView) findViewById(R.id.webView);

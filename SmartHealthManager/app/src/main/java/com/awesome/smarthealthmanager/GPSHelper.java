@@ -49,7 +49,7 @@ public class GPSHelper implements LocationListener {
         latitude = location.getLatitude();
         Log.v(TAG, Double.toString(latitude));
 
-        if (FindHospitalActivity.FindHospitalViewActive) {
+        if (FindHospitalActivity.findHospitalViewActive) {
             // MapView is already active, pass the updated location
 
         } else {

@@ -1,9 +1,11 @@
 package com.awesome.smarthealthmanager;
 
 import android.app.Dialog;
+import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,7 +16,21 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.apache.http.HttpResponse;
+import org.apache.http.NameValuePair;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.message.BasicNameValuePair;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by yoonjae on 29/11/2016.
@@ -34,7 +50,8 @@ public class PersonalSymptomFragment extends Fragment implements View.OnClickLis
     private String tmp_st_sub = "";
     private Dialog levelDialog;
     private Dialog moreDialog;
-    HttpAsyncTask httpasynctask;
+    HttpAsyncTask httpAsyncTask;
+    Context context;
 
     final String[ /* For UI */][ /* For Naver Maps */] st_place = {
             {"머리", "정신과"},
@@ -67,6 +84,8 @@ public class PersonalSymptomFragment extends Fragment implements View.OnClickLis
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
+        context = getContext();
 
          /* Dialog 부분 */
         levelDialog = new Dialog(getContext());
@@ -249,8 +268,8 @@ public class PersonalSymptomFragment extends Fragment implements View.OnClickLis
                 Person.st_place = st_place[current_position][0];
                 Person.st_scale = tmp_st_scale;
                 Person.st_sub = tmp_st_sub;
-                httpasynctask = new HttpAsyncTask();
-                httpasynctask.execute("http://igrus.mireene.com/applogin/stchange.php");
+                httpAsyncTask = new HttpAsyncTask();
+                httpAsyncTask.execute("http://igrus.mireene.com/applogin/stchange.php");
                 moreDialog.dismiss();
                 break;
             default:
@@ -261,21 +280,88 @@ public class PersonalSymptomFragment extends Fragment implements View.OnClickLis
     public class HttpAsyncTask extends AsyncTask<String, Void, String> {
 
         @Override
-        protected String doInBackground(String... params) {
-            return null;
+        protected String doInBackground(String... urls) {
+            return POST(urls[0]);
         }
 
         @Override
-        protected void onPostExecute(String s) {
-            super.onPostExecute(s);
+        protected void onPostExecute(String result) {
+            Log.d("checkresult2", result);
+            if (result.equals("Did not work!")) {
+                Toast.makeText(context, "로그인 실패 인터넷 연결을 확인하세요", Toast.LENGTH_SHORT).show();
+            } else {
+                //TODO : 전송완료 후 할일
+            }
         }
     }
 
-    public String POST(String url, Person person) {
-        return null;
+    public String POST(String url) {
+        InputStream inputStream = null;
+        String result = "";
+        try {
+            // 1. create HttpClient
+            HttpClient httpclient = new DefaultHttpClient();
+
+            // 2. make POST request to the given URL
+            HttpPost httpPost = new HttpPost(url);
+
+            String json = "";
+
+            // 3. build jsonObject
+            JSONObject jsonObject = new JSONObject();
+            //jsonObject.accumulate("name", person.getName());
+            //jsonObject.accumulate("country", person.getCountry());
+            //jsonObject.accumulate("twitter", person.getTwitter());
+
+            // 4. convert JSONObject to JSON to String
+            json = jsonObject.toString();
+
+            // ** Alternative way to convert Person object to JSON string usin Jackson Lib
+            // ObjectMapper mapper = new ObjectMapper();
+            // json = mapper.writeValueAsString(person);
+
+            List<NameValuePair> nameValuePair = new ArrayList<NameValuePair>(6);
+            nameValuePair.add(new BasicNameValuePair("userid", Person.userId));
+            nameValuePair.add(new BasicNameValuePair("st_place", Person.st_place));
+            nameValuePair.add(new BasicNameValuePair("st_main", Person.st_main));
+            nameValuePair.add(new BasicNameValuePair("st_scale", " " + Person.st_scale));
+            nameValuePair.add(new BasicNameValuePair("st_sub", Person.st_sub + " "));
+            // 5. set json to StringEntity
+            //StringEntity se = new StringEntity(json);
+
+            // 6. set httpPost Entity
+            httpPost.setEntity(new UrlEncodedFormEntity(nameValuePair, "utf-8"));
+            // 7. Set some headers to inform server about the type of the content
+            //httpPost.setHeader("Accept", "application/json");
+            //httpPost.setHeader("Content-type", "application/json");
+
+            // 8. Execute POST request to the given URL
+            HttpResponse httpResponse = httpclient.execute(httpPost);
+
+            // 9. receive response as inputStream
+            inputStream = httpResponse.getEntity().getContent();
+
+            // 10. convert inputstream to string
+            if (inputStream != null)
+                result = convertInputStreamToString(inputStream);
+            else
+                result = "Did not work!";
+
+        } catch (Exception e) {
+            Log.d("InputStream", e.getLocalizedMessage());
+        }
+        Log.d("http", result);
+
+        // 11. return result
+        return result;
     }
 
-    public String convertInputStreamToString(InputStream inputStream) {
-        return null;
+    public String convertInputStreamToString(InputStream inputStream) throws IOException {
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
+        String line = "", result = "";
+        while ((line = bufferedReader.readLine()) != null)
+            result += line;
+        inputStream.close();
+        return result;
     }
 }

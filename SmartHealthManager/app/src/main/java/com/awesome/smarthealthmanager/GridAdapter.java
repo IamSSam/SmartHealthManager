@@ -29,17 +29,17 @@ public class GridAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        return 0;
+        return image.length;
     }
 
     @Override
     public Object getItem(int position) {
-        return null;
+        return image[position];
     }
 
     @Override
     public long getItemId(int position) {
-        return 0;
+        return position;
     }
 
     @Override
