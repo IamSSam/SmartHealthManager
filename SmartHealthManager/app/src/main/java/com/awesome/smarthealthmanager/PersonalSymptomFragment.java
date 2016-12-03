@@ -149,7 +149,7 @@ public class PersonalSymptomFragment extends Fragment implements View.OnClickLis
         symptom_main_btn1 = (Button) levelDialog.findViewById(R.id.symptom_main_btn1);
         symptom_main_btn2 = (Button) levelDialog.findViewById(R.id.symptom_main_btn2);
         symptom_main_btn3 = (Button) levelDialog.findViewById(R.id.symptom_main_btn3);
-        find_hospital = (Button) levelDialog.findViewById(R.id.level_hospital);
+        find_hospital = (Button) levelDialog.findViewById(R.id.find_hospital);
 
         more_confirm = (Button) moreDialog.findViewById(R.id.more_confirm);
 
@@ -257,7 +257,7 @@ public class PersonalSymptomFragment extends Fragment implements View.OnClickLis
                 tmp_st_main = symptom_main_btn3.getText().toString();
                 moreDialog.show();
                 break;
-            case R.id.level_hospital:
+            case R.id.find_hospital:
                 GPSHelper.initiateGPSservice(getContext(), getActivity(),
                         st_place[current_position][1]);
                 levelDialog.dismiss();

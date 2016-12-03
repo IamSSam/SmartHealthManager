@@ -140,7 +140,7 @@
         android:orientation="vertical">
 
         <Button
-            android:id="@+id/level_hospital"
+            android:id="@+id/find_hospital"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:layout_margin="2dp"
