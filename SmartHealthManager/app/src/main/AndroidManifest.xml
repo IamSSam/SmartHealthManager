@@ -27,22 +27,25 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".MainActivity"
+        <activity
+            android:name=".MainActivity"
             android:label="SHM"
-            android:theme="@style/AppTheme.NoActionBar"  />
+            android:theme="@style/AppTheme.NoActionBar" />
 
         <activity
             android:name=".LoginActivity"
             android:theme="@style/AppTheme_"
-            android:windowSoftInputMode="stateVisible|adjustPan|stateAlwaysHidden" />
+            android:windowSoftInputMode="adjustPan|stateAlwaysHidden" />
 
-        <activity android:name=".SignUpActivity"
-            android:windowSoftInputMode="stateVisible|adjustPan|stateAlwaysHidden"/>
+        <activity
+            android:name=".SignUpActivity"
+            android:windowSoftInputMode="adjustPan|stateAlwaysHidden" />
 
-        <activity android:name=".FindHospitalActivity">
+        <activity
+            android:name=".FindHospitalActivity"
+            android:windowSoftInputMode="adjustPan">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
