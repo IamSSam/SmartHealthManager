@@ -69,7 +69,7 @@
                     android:textColor="#000000"
                     android:imeActionId="@+id/login"
                     android:imeActionLabel="회원가입"
-                    android:imeOptions="actionUnspecified"
+                    android:imeOptions="actionDone"
                     android:inputType="textPassword"
                     android:maxLines="1"/>
 

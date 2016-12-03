@@ -69,6 +69,7 @@ public class PersonalInfoFragment extends Fragment {
         tab1_sleepTime = (EditText) view.findViewById(R.id.tab1_sleepTime);
         tab1_weight = (EditText) view.findViewById(R.id.tab1_weight);
 
+        tab1_height.setNextFocusDownId(R.id.tab1_weight);
         //TODO : EditText에 적혀있는 내용을 서버로 옮겨야함
 
 
