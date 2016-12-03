@@ -21,6 +21,7 @@ import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
@@ -106,6 +107,7 @@ public class SignUpActivity extends AppCompatActivity {
                 } else {
                     // TODO: 회원가입하면 DB에 등록되는 부분. 이 정보들을 서버로 넘겨야함.
                     new HttpAsyncTask().execute("http://igrus.mireene.com/applogin/register.php");
+                    Log.d("Sign up Cliked", "Success");
                 }
 
             }
@@ -167,13 +169,26 @@ public class SignUpActivity extends AppCompatActivity {
     public class HttpAsyncTask extends AsyncTask<String, Void, String> {
 
         @Override
-        protected String doInBackground(String... params) {
-            return null;
+        protected String doInBackground(String... urls) {
+            return POST(urls[0]);
         }
 
         @Override
-        protected void onPostExecute(String s) {
-            super.onPostExecute(s);
+        protected void onPostExecute(String result) {
+            if (result.equals("Did not work!")) {
+                Toast.makeText(SignUpActivity.this, "로그인 실패 인터넷 연결을 확인하세요", Toast.LENGTH_SHORT).show();
+            }
+            try {
+                JSONObject jobj = new JSONObject(result);
+                if (jobj.getString("error").equals("true")) {
+                    Toast.makeText(SignUpActivity.this, "이미 있는 아이디이거나 서버 오류입니다.", Toast.LENGTH_SHORT).show();
+                }
+                Intent intent = new Intent(SignUpActivity.this, LoginActivity.class);
+                startActivity(intent);
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
         }
     }
 
