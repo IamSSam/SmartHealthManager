@@ -35,7 +35,6 @@ public class SignUpActivity extends AppCompatActivity {
 
     static EditText phone, name, birth;
     static String sex, month;
-    public Bundle bundle;
     public EditText userId;
     public EditText userPwd;
     public EditText comparePwd;

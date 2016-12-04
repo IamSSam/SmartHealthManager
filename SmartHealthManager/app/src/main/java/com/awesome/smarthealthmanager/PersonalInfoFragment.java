@@ -22,11 +22,7 @@ public class PersonalInfoFragment extends Fragment {
     TextView tab1_sex;
     SignUpActivity signUpActivity;
     Button saveButton;
-    Button btn;
 
-    private static final int REQUEST_MICROPHONE = 3;
-    private static final int REQUEST_EXTERNAL_STORAGE = 2;
-    public static final int REQUEST_CAMERA = 1;
     private EditText tab1_abo;
     private EditText tab1_allergy;
     private EditText tab1_dailyStride;
