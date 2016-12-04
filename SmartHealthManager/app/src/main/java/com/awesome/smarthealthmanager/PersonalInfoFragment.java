@@ -20,7 +20,6 @@ public class PersonalInfoFragment extends Fragment {
     TextView tab1_name;
     TextView tab1_age;
     TextView tab1_sex;
-    SignUpActivity signUpActivity;
     Button saveButton;
 
     private EditText tab1_abo;
@@ -36,17 +35,14 @@ public class PersonalInfoFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         int year = Calendar.getInstance().get(Calendar.YEAR);
-        //int age = year - Integer.parseInt(signUpActivity.getAge());
         int age = year - Person.birth.getYear();
 
 
         int cmonth = Calendar.getInstance().get(Calendar.MONTH);
-        //int myMonth = Integer.parseInt(signUpActivity.getMonth());
         int myMonth = Person.birth.getMonth();
 
         View view = inflater.inflate(R.layout.fragment_personal_info, container, false);
 
-        signUpActivity = new SignUpActivity();
 
         tab1_name = (TextView) view.findViewById(R.id.tab1_name);
         tab1_age = (TextView) view.findViewById(R.id.tab1_age);
@@ -68,15 +64,10 @@ public class PersonalInfoFragment extends Fragment {
         tab1_height.setNextFocusDownId(R.id.tab1_weight);
         //TODO : EditText에 적혀있는 내용을 서버로 옮겨야함
 
-
-
-
-        //String user_name = signUpActivity.getName();
         String user_name = Person.name;
 
         tab1_name.setText(user_name);
 
-        //String user_age = signUpActivity.getAge();
         String user_age = "" + age;
 
 
@@ -90,7 +81,6 @@ public class PersonalInfoFragment extends Fragment {
 
         }
 
-        //String user_sex = signUpActivity.getSex();
         String user_sex;
         if (Person.sex == 1)
             user_sex = "남";
