@@ -2,6 +2,7 @@ package com.awesome.smarthealthmanager;
 
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +10,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import org.w3c.dom.Text;
 import java.util.Calendar;
 
 /**
@@ -17,22 +19,22 @@ import java.util.Calendar;
 
 public class PersonalInfoFragment extends Fragment {
 
-    TextView tab1_name;
-    TextView tab1_age;
-    TextView tab1_sex;
-    Button saveButton;
+    static TextView tab1_name;
+    static TextView tab1_age;
+    static TextView tab1_sex;
+    static Button saveButton;
 
-    private EditText tab1_abo;
-    private EditText tab1_allergy;
-    private EditText tab1_dailyStride;
-    private EditText tab1_height;
-    private EditText tab1_history;
-    private EditText tab1_medicine;
-    private EditText tab1_sleepTime;
-    private EditText tab1_weight;
+    static EditText tab1_abo;
+    static EditText tab1_allergy;
+    static EditText tab1_dailyStride;
+    static EditText tab1_height;
+    static EditText tab1_history;
+    static EditText tab1_medicine;
+    static EditText tab1_sleepTime;
+    static EditText tab1_weight;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(final LayoutInflater inflater, final ViewGroup container, Bundle savedInstanceState) {
 
         int year = Calendar.getInstance().get(Calendar.YEAR);
         int age = year - Person.birth.getYear();
@@ -41,16 +43,12 @@ public class PersonalInfoFragment extends Fragment {
         int cmonth = Calendar.getInstance().get(Calendar.MONTH);
         int myMonth = Person.birth.getMonth();
 
-        View view = inflater.inflate(R.layout.fragment_personal_info, container, false);
+        final View view = inflater.inflate(R.layout.fragment_personal_info, container, false);
 
 
         tab1_name = (TextView) view.findViewById(R.id.tab1_name);
         tab1_age = (TextView) view.findViewById(R.id.tab1_age);
         tab1_sex = (TextView) view.findViewById(R.id.tab1_sex);
-
-        saveButton = (Button) view.findViewById(R.id.save_button);
-
-        saveButton.setOnClickListener(buttonClickListener);
 
         tab1_abo = (EditText) view.findViewById(R.id.tab1_abo);
         tab1_allergy = (EditText) view.findViewById(R.id.tab1_allergy);
@@ -63,6 +61,18 @@ public class PersonalInfoFragment extends Fragment {
 
         tab1_height.setNextFocusDownId(R.id.tab1_weight);
         //TODO : EditText에 적혀있는 내용을 서버로 옮겨야함
+
+        saveButton = (Button) view.findViewById(R.id.save_button);
+        saveButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                transaction.replace(R.id.root, new EditedPersonalInfoFragment());
+                transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+                transaction.addToBackStack(null);
+                transaction.commit();
+            }
+        });
 
         String user_name = Person.name;
 
@@ -90,12 +100,4 @@ public class PersonalInfoFragment extends Fragment {
 
         return view;
     }
-
-    private View.OnClickListener buttonClickListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-
-
-        }
-    };
 }

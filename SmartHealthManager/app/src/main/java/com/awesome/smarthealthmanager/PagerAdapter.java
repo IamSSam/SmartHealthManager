@@ -21,7 +21,8 @@ public class PagerAdapter extends FragmentStatePagerAdapter {
     public Fragment getItem(int position) {
         switch (position) {
             case 0:
-                PersonalInfoFragment tab1 = new PersonalInfoFragment();
+//                PersonalInfoFragment tab1 = new PersonalInfoFragment();
+                RootFragment tab1 = new RootFragment();
                 return tab1;
             case 1:
                 PersonalSymptomFragment tab2 = new PersonalSymptomFragment();
