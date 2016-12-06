@@ -288,9 +288,10 @@ public class PersonalSymptomFragment extends Fragment implements View.OnClickLis
         protected void onPostExecute(String result) {
             Log.d("checkresult2", result);
             if (result.equals("Did not work!")) {
-                Toast.makeText(context, "로그인 실패 인터넷 연결을 확인하세요", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "로그인 실패 인터넷 연결을 확인하세요.", Toast.LENGTH_SHORT).show();
             } else {
                 //TODO : 전송완료 후 할일
+                Toast.makeText(context, "저장되었습니다.", Toast.LENGTH_SHORT).show();
             }
         }
     }

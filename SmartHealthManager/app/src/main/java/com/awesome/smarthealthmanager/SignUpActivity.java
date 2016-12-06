@@ -181,6 +181,8 @@ public class SignUpActivity extends AppCompatActivity {
                 JSONObject jobj = new JSONObject(result);
                 if (jobj.getString("error").equals("true")) {
                     Toast.makeText(SignUpActivity.this, "이미 있는 아이디이거나 서버 오류입니다.", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(SignUpActivity.this, "회원가입에 성공하였습니다.", Toast.LENGTH_SHORT).show();
                 }
                 Intent intent = new Intent(SignUpActivity.this, LoginActivity.class);
                 startActivity(intent);

@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.w3c.dom.Text;
 import java.util.Calendar;
@@ -60,7 +61,6 @@ public class PersonalInfoFragment extends Fragment {
         tab1_weight = (EditText) view.findViewById(R.id.tab1_weight);
 
         tab1_height.setNextFocusDownId(R.id.tab1_weight);
-        //TODO : EditText에 적혀있는 내용을 서버로 옮겨야함
 
         saveButton = (Button) view.findViewById(R.id.save_button);
         saveButton.setOnClickListener(new View.OnClickListener() {
@@ -71,6 +71,11 @@ public class PersonalInfoFragment extends Fragment {
                 transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
                 transaction.addToBackStack(null);
                 transaction.commit();
+
+                //TODO : EditText에 적혀있는 내용을 서버로 옮겨야함
+
+//                Toast.makeText(getContext(), "정상적으로 저장 되었습니다", Toast.LENGTH_SHORT).show();
+
             }
         });
 
