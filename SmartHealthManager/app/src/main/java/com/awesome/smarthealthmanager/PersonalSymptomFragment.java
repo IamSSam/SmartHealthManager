@@ -58,7 +58,7 @@ public class PersonalSymptomFragment extends Fragment implements View.OnClickLis
     Context context;
     private final static int REQUEST_LOCATION = 1;
     final String[ /* For UI */][ /* For Naver Maps */] st_place = {
-            {"머리", "정신과"},
+            {"머리", "내과"},
             {"얼굴", "외과"},
             {"식도", "내과"},
             //{ "가슴", "" },
@@ -78,12 +78,12 @@ public class PersonalSymptomFragment extends Fragment implements View.OnClickLis
             //{ "생식기 (여자)", "" },
             {"목", "소아과"},
             {"코", "소아과"},
-            {"발바닥", ""},
-            {"손가락", ""},
-            {"혀", ""},
-            {"척추", ""},
-            {"귀", ""},
-            {"팔근육", ""}
+            {"발바닥", "피부과"},
+            {"손가락", "정형외과"},
+            {"혀", "내과"},
+            {"척추", "정형외과"},
+            {"귀", "이비인후과"},
+            {"팔근육", "정형외과"}
     };
 
     @Override

@@ -35,9 +35,9 @@ public class GPSHelper {
             locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 100, 1, locationListener);
 
         } catch (SecurityException e) {
-
+            e.printStackTrace();
         } catch (Exception e) {
-
+            e.printStackTrace();
         }
     }
 
@@ -49,7 +49,8 @@ public class GPSHelper {
             Log.v(TAG, Double.toString(latitude));
 
             if (FindHospitalActivity.findHospitalViewActive) {
-                // MapView is already active, pass the updated location
+                //// TODO: 08/12/2016 MapView is already active, pass the updated location
+
 
             } else {
                 Intent intent = new Intent(prevActivity, FindHospitalActivity.class);
