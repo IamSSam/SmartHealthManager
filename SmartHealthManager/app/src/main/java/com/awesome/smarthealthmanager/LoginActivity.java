@@ -111,24 +111,24 @@ public class LoginActivity extends AppCompatActivity {
             return POST(urls[0]);
         }
 
-        @Override
-        protected void onPostExecute(String result) {
-            if (result.equals("Did not work!")) {
-                Toast.makeText(LoginActivity.this, "로그인 실패 인터넷 연결을 확인하세요", Toast.LENGTH_SHORT).show();
-            }
-            try {
+                @Override
+                protected void onPostExecute(String result) {
+                    if (result.equals("Did not work!")) {
+                        Toast.makeText(LoginActivity.this, "로그인 실패 인터넷 연결을 확인하세요", Toast.LENGTH_SHORT).show();
+                    }
+                    try {
 
-                JSONObject jobj = new JSONObject(result);
-                Person.name = jobj.getString("name");
-                Person.birth.setYear(Integer.parseInt(jobj.getString("birth").substring(0, 4)));
-                Person.birth.setMonth(Integer.parseInt(jobj.getString("birth").substring(4, 6)));
-                Person.birth.setDate(Integer.parseInt(jobj.getString("birth").substring(6, 8)));
+                        JSONObject jobj = new JSONObject(result);
+                        Person.name = jobj.getString("name");
+                        Person.birth.setYear(Integer.parseInt(jobj.getString("birth").substring(0, 4)));
+                        Person.birth.setMonth(Integer.parseInt(jobj.getString("birth").substring(4, 6)));
+                        Person.birth.setDate(Integer.parseInt(jobj.getString("birth").substring(6, 8)));
 
 
-                Person.phonenumber = jobj.getString("phonenumber");
-                Person.sex = jobj.getInt("sex");
+                        Person.phonenumber = jobj.getString("phonenumber");
+                        Person.sex = jobj.getInt("sex");
 
-                Log.d("check", "" + Person.name + " " + Person.phonenumber + " " + Person.sex + " ");
+                        Log.d("check", "" + Person.name + " " + Person.phonenumber + " " + Person.sex + " ");
 
                 Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                 startActivity(intent);

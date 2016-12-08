@@ -1,10 +1,14 @@
 package com.awesome.smarthealthmanager;
 
+import android.Manifest;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.pm.PackageManager;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -52,7 +56,7 @@ public class PersonalSymptomFragment extends Fragment implements View.OnClickLis
     private Dialog moreDialog;
     HttpAsyncTask httpAsyncTask;
     Context context;
-
+    private final static int REQUEST_LOCATION = 1;
     final String[ /* For UI */][ /* For Naver Maps */] st_place = {
             {"머리", "정신과"},
             {"얼굴", "외과"},
@@ -238,10 +242,8 @@ public class PersonalSymptomFragment extends Fragment implements View.OnClickLis
         return view;
     }
 
-
     @Override
     public void onClick(View v) {
-
         switch (v.getId()) {
             case R.id.symptom_main_btn1:
                 tmp_st_main = symptom_main_btn1.getText().toString();
@@ -258,7 +260,14 @@ public class PersonalSymptomFragment extends Fragment implements View.OnClickLis
                 moreDialog.show();
                 break;
             case R.id.find_hospital:
-                GPSHelper.initiateGPSservice(getContext(), getActivity(),
+                int permissionLocation = ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION);
+                if (permissionLocation == PackageManager.PERMISSION_DENIED) {
+                    ActivityCompat.requestPermissions(getActivity(), new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION}, 1);
+                } else { // 다음부터 물어보지 않고 바로 실행하는 부분
+                    Toast.makeText(getActivity(), "location permission authorized", Toast.LENGTH_LONG);
+                }
+                GPSHelper gpsHelper = new GPSHelper();
+                gpsHelper.initiateGPSservice(getContext(), getActivity(),
                         st_place[current_position][1]);
                 levelDialog.dismiss();
                 break;
@@ -276,6 +285,34 @@ public class PersonalSymptomFragment extends Fragment implements View.OnClickLis
                 break;
         }
     }
+
+    /***
+     * 권한요청 응답 처리하기
+     *
+     * **/
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        switch (requestCode) {
+            case REQUEST_LOCATION:
+                for (int i = 0; i < permissions.length; i++) {
+                    String permission = permissions[i];
+                    int grantResult = grantResults[i];
+                    if (permission.equals(Manifest.permission.ACCESS_FINE_LOCATION)) { // 고객이 permission 접근을 승인할 시
+                        if (grantResult == PackageManager.PERMISSION_GRANTED) {
+                            Toast.makeText(getActivity(), "location permission authorized", Toast.LENGTH_LONG);
+                        } else {// 고객이 permission 접근을 거부할 시
+                            Toast.makeText(getActivity(), "location permission denied", Toast.LENGTH_LONG);
+                        }
+                    }
+                    break;
+
+                }
+            default:
+                break;
+        }
+    }
+
 
     public class HttpAsyncTask extends AsyncTask<String, Void, String> {
 

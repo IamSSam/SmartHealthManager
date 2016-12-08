@@ -16,7 +16,7 @@ import static android.content.ContentValues.TAG;
  * Created by yoonjae on 29/11/2016.
  */
 
-public class GPSHelper implements LocationListener {
+public class GPSHelper {
 
     private static Activity prevActivity;
     public static double longitude = -1;
@@ -24,54 +24,54 @@ public class GPSHelper implements LocationListener {
     public static String hospital_type;
 
 
-    public static void initiateGPSservice(Context context, Activity activity, String hospital) {
+    public void initiateGPSservice(Context context, Activity activity, String hospital) {
         try {
             prevActivity = activity;
             hospital_type = hospital;
             Toast.makeText(context, "현재 위치를 받아오는 중 입니다...", Toast.LENGTH_SHORT).show();
 
-            LocationManager locationManager = (LocationManager)
-                    context.getSystemService(Context.LOCATION_SERVICE);
+            final LocationManager locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
+            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 100, 1, locationListener);
+            locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 100, 1, locationListener);
 
-            LocationListener locationListener = new GPSHelper();
-            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5000, 10, locationListener);
         } catch (SecurityException e) {
-            // TODO : Implement runtime location permission
+
         } catch (Exception e) {
 
         }
     }
 
-    @Override
-    public void onLocationChanged(Location location) {
-        longitude = location.getLongitude();
-        Log.v(TAG, Double.toString(longitude));
-        latitude = location.getLatitude();
-        Log.v(TAG, Double.toString(latitude));
+    private final LocationListener locationListener = new LocationListener() {
+        public void onLocationChanged(Location location) {
+            longitude = location.getLongitude();
+            Log.v(TAG, Double.toString(longitude));
+            latitude = location.getLatitude();
+            Log.v(TAG, Double.toString(latitude));
 
-        if (FindHospitalActivity.findHospitalViewActive) {
-            // MapView is already active, pass the updated location
+            if (FindHospitalActivity.findHospitalViewActive) {
+                // MapView is already active, pass the updated location
 
-        } else {
-            Intent intent = new Intent(prevActivity, FindHospitalActivity.class);
-            intent.addCategory(Intent.CATEGORY_HOME);
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            prevActivity.startActivity(intent);
+            } else {
+                Intent intent = new Intent(prevActivity, FindHospitalActivity.class);
+                intent.addCategory(Intent.CATEGORY_HOME);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                prevActivity.startActivity(intent);
+            }
         }
-    }
 
-    @Override
-    public void onStatusChanged(String provider, int status, Bundle extras) {
+        @Override
+        public void onStatusChanged(String provider, int status, Bundle extras) {
 
-    }
+        }
 
-    @Override
-    public void onProviderEnabled(String provider) {
+        @Override
+        public void onProviderEnabled(String provider) {
 
-    }
+        }
 
-    @Override
-    public void onProviderDisabled(String provider) {
+        @Override
+        public void onProviderDisabled(String provider) {
 
-    }
+        }
+    };
 }

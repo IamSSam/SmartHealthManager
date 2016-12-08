@@ -38,8 +38,9 @@ public class FindHospitalActivity extends AppCompatActivity {
                 return true;
             }
         });
+        //String loadUrl = "http://arter97.com/hackathon/geocode.php?lng=" + GPSHelper.longitude + "&lat=" + GPSHelper.latitude + "&hospital=";
+        String loadUrl = "http://igrus.mireene.com/PHR/mapview/geocode.php?lng=" + GPSHelper.longitude + "&lat=" + GPSHelper.latitude + "&hospital=";
 
-        String loadUrl = "http://arter97.com/hackathon/geocode.php?lng=" + GPSHelper.longitude + "&lat=" + GPSHelper.latitude + "&hospital=";
         try {
             loadUrl += URLEncoder.encode(GPSHelper.hospital_type, "UTF-8");
         } catch (Exception e) {
