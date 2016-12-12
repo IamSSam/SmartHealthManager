@@ -1,15 +1,9 @@
 package com.awesome.smarthealthmanager;
 
-import android.annotation.TargetApi;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
 import android.os.AsyncTask;
-import android.os.Build;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -40,8 +34,6 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
-
-import static android.Manifest.permission.READ_CONTACTS;
 
 /**
  * A login screen that offers login via email/password.
@@ -111,12 +103,11 @@ public class LoginActivity extends AppCompatActivity {
         Person.password = mPasswordView.getText().toString();
         Log.d("texter", Person.userId);
         Log.d("texter", Person.password);
-        new HttpAsyncTask().execute("http://igrus.mireene.com/applogin/login.php");
-
+        new LoginAsyncTask().execute("http://igrus.mireene.com/applogin/login.php");
+//        new GetInfoAsyncTask().execute("http://igrus.mireene.com/applogin/getPersonInfo.php/?userid=" + Person.userId);
     }
 
-    public class HttpAsyncTask extends AsyncTask<String, Void, String> {
-
+    public class LoginAsyncTask extends AsyncTask<String, Void, String> {
         @Override
         protected String doInBackground(String... urls) {
             return POST(urls[0]);
@@ -140,18 +131,7 @@ public class LoginActivity extends AppCompatActivity {
                 Person.sex = jobj.getInt("sex");
 
                 Log.d("check", "" + Person.name + " " + Person.phonenumber + " " + Person.sex + " ");
-
-                /*
-                Log.e("!", "1");
-                editor = setting.edit();
-                editor.putBoolean("auto", true);
-                Log.e("!", "2");
-                editor.commit();
-                */
-
-                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                startActivity(intent);
-
+                new GetInfoAsyncTask().execute("http://igrus.mireene.com/applogin/getPersonInfo.php/?userid=" + Person.userId);
             } catch (JSONException e) {
                 Toast.makeText(LoginActivity.this, "로그인 실패", Toast.LENGTH_SHORT).show();
                 e.printStackTrace();
@@ -195,6 +175,91 @@ public class LoginActivity extends AppCompatActivity {
             // 6. set httpPost Entity
             httpPost.setEntity(new UrlEncodedFormEntity(nameValuePair));
 
+            // 7. Set some headers to inform server about the type of the content
+            //httpPost.setHeader("Accept", "application/json");
+            //httpPost.setHeader("Content-type", "application/json");
+
+            // 8. Execute POST request to the given URL
+            HttpResponse httpResponse = httpclient.execute(httpPost);
+
+            // 9. receive response as inputStream
+            inputStream = httpResponse.getEntity().getContent();
+
+            // 10. convert inputstream to string
+            if (inputStream != null)
+                result = convertInputStreamToString(inputStream);
+            else
+                result = "Did not work!";
+
+        } catch (Exception e) {
+            Log.d("InputStream", e.getLocalizedMessage());
+        }
+        Log.d("http", result);
+
+        // 11. return result
+        return result;
+    }
+
+    public class GetInfoAsyncTask extends AsyncTask<String, Void, String> {
+        @Override
+        protected String doInBackground(String... urls) {
+            return POST2(urls[0]);
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            if (result.equals("Did not work!")) {
+                Toast.makeText(LoginActivity.this, "로그인 실패 인터넷 연결을 확인하세요", Toast.LENGTH_SHORT).show();
+            }
+            try {
+//                Toast.makeText(LoginActivity.this, result, Toast.LENGTH_LONG).show();
+
+                JSONObject jobj = new JSONObject(result);
+                Person.d_height = jobj.getString("height");
+                Person.d_weight = jobj.getString("weight");
+                Person.d_abo = jobj.getString("abo");
+                Person.d_medicine = jobj.getString("medicine");
+                Person.d_allergy = jobj.getString("allergy");
+                Person.d_history = jobj.getString("history");
+                Person.d_sleeptime = jobj.getString("sleeptime");
+                Person.d_dailystride = jobj.getString("dailystride");
+
+                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                startActivity(intent);
+
+            } catch (JSONException e) {
+                Toast.makeText(LoginActivity.this, "정보가져오기 실패", Toast.LENGTH_SHORT).show();
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public static String POST2(String url) {
+        InputStream inputStream = null;
+        String result = "";
+        try {
+            // 1. create HttpClient
+            HttpClient httpclient = new DefaultHttpClient();
+
+            // 2. make POST request to the given URL
+            HttpPost httpPost = new HttpPost(url);
+
+            String json = "";
+
+            // 3. build jsonObject
+            JSONObject jsonObject = new JSONObject();
+            //jsonObject.accumulate("name", person.getName());
+            //jsonObject.accumulate("country", person.getCountry());
+            //jsonObject.accumulate("twitter", person.getTwitter());
+
+            // 4. convert JSONObject to JSON to String
+            json = jsonObject.toString();
+
+            // 5. set json to StringEntity
+            //StringEntity se = new StringEntity(json);
+
+            // 6. set httpPost Entity
+            //httpPost.setEntity(new UrlEncodedFormEntity(nameValuePair, "utf-8"));
             // 7. Set some headers to inform server about the type of the content
             //httpPost.setHeader("Accept", "application/json");
             //httpPost.setHeader("Content-type", "application/json");

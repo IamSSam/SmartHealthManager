@@ -367,7 +367,7 @@ public class PersonalSymptomFragment extends Fragment implements View.OnClickLis
             nameValuePair.add(new BasicNameValuePair("st_scale", " " + Person.st_scale));
             nameValuePair.add(new BasicNameValuePair("st_sub", Person.st_sub + " "));
             //TODO: Send st_comment data from android to DB
-            //nameValuePair.add(new BasicNameValuePair("st_comment", Person.st_comment + " "));
+            nameValuePair.add(new BasicNameValuePair("st_comment", Person.st_comment + " "));
 
             // 5. set json to StringEntity
             //StringEntity se = new StringEntity(json);

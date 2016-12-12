@@ -105,7 +105,7 @@ public class SignUpActivity extends AppCompatActivity {
                 } else {
                     // TODO: 회원가입하면 DB에 등록되는 부분. 이 정보들을 서버로 넘겨야함.
                     new HttpAsyncTask().execute("http://igrus.mireene.com/applogin/register.php");
-                    Log.d("Sign up Clicked", "Success");
+//                    Log.d("Sign up Clicked", "Success");
                 }
 
 
@@ -225,7 +225,7 @@ public class SignUpActivity extends AppCompatActivity {
             nameValuePair.add(new BasicNameValuePair("name", name.getText().toString()));
             nameValuePair.add(new BasicNameValuePair("phonenumber", phone.getText().toString()));
 
-            Log.d("monthandday", month + " " + day.getText().toString());
+            //Log.d("monthandday", month + " " + day.getText().toString());
 
             String monthtmp;
             if (getMonth().length() == 1) {
@@ -264,9 +264,9 @@ public class SignUpActivity extends AppCompatActivity {
                 result = "Did not work!";
 
         } catch (Exception e) {
-            Log.d("InputStream", e.getLocalizedMessage());
+//            Log.d("InputStream", e.getLocalizedMessage());
         }
-        Log.d("http", result);
+//        Log.d("http", result);
 
         // 11. return result
         return result;

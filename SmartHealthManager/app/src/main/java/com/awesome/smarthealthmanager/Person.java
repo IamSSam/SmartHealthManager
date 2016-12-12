@@ -21,12 +21,13 @@ public class Person {
     public static String st_sub;
     public static String st_comment;
 
-    public static float d_height; //detail height
-    public static float d_weight;
-    public static String d_abo;
-    public static String d_allergy;
-    public static String d_history;
-    public static String d_sleeptime;
-    public static String d_dailystride;
+    public static String d_height = "-1"; //detail height
+    public static String d_weight = "-1";
+    public static String d_abo = "-1";
+    public static String d_medicine = "-1";
+    public static String d_allergy = "-1";
+    public static String d_history = "-1";
+    public static String d_sleeptime = "-1";
+    public static String d_dailystride = "-1";
 
 }

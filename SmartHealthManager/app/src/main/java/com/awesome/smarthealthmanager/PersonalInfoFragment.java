@@ -22,6 +22,7 @@ import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
+import org.json.JSONException;
 import org.json.JSONObject;
 import org.w3c.dom.Text;
 
@@ -74,18 +75,17 @@ public class PersonalInfoFragment extends Fragment {
         tab1_age = (TextView) view.findViewById(R.id.tab1_age);
         tab1_sex = (TextView) view.findViewById(R.id.tab1_sex);
 
-        tab1_abo = (EditText) view.findViewById(R.id.tab1_abo);
-        tab1_allergy = (EditText) view.findViewById(R.id.tab1_allergy);
-        tab1_dailyStride = (EditText) view.findViewById(R.id.tab1_dailyStride);
         tab1_height = (EditText) view.findViewById(R.id.tab1_height);
-        tab1_history = (EditText) view.findViewById(R.id.tab1_history);
-        tab1_medicine = (EditText) view.findViewById(R.id.tab1_medicine);
-        tab1_sleepTime = (EditText) view.findViewById(R.id.tab1_sleepTime);
         tab1_weight = (EditText) view.findViewById(R.id.tab1_weight);
-
+        tab1_abo = (EditText) view.findViewById(R.id.tab1_abo);
+        tab1_medicine = (EditText) view.findViewById(R.id.tab1_medicine);
+        tab1_allergy = (EditText) view.findViewById(R.id.tab1_allergy);
+        tab1_history = (EditText) view.findViewById(R.id.tab1_history);
+        tab1_sleepTime = (EditText) view.findViewById(R.id.tab1_sleepTime);
+        tab1_dailyStride = (EditText) view.findViewById(R.id.tab1_dailyStride);
         tab1_height.setNextFocusDownId(R.id.tab1_weight);
 
-        //new HttpAsyncTask().execute("http://igrus.mireene.com/applogin/getPersonInfo.php/?id="+Person.userId;
+        setInformationIfExist();
 
         saveButton = (Button) view.findViewById(R.id.save_button);
         saveButton.setOnClickListener(new View.OnClickListener() {
@@ -95,25 +95,21 @@ public class PersonalInfoFragment extends Fragment {
                 Date date = new Date(now);
                 SimpleDateFormat sdfNow = new SimpleDateFormat("0yyyy-MM-dd");
                 String currentDateTime = sdfNow.format(date);
-                Log.d("current time... ",currentDateTime );
+//                Log.d("current time... ", currentDateTime);
 
                 //Log.d("PersonID", Person.userId);
                 //TODO : EditText에 적혀있는 내용을 서버로 옮겨야함
-                    new HttpAsyncTask().execute("http://igrus.mireene.com/applogin/personInfo.php/?userid=" + Person.userId + "&height=" + PersonalInfoFragment.tab1_height.getText().toString()
+                new HttpAsyncTask().execute("http://igrus.mireene.com/applogin/personInfo.php/?userid=" + Person.userId + "&height=" + PersonalInfoFragment.tab1_height.getText().toString()
                         + "&weight=" + PersonalInfoFragment.tab1_weight.getText().toString() + "&abo=" + PersonalInfoFragment.tab1_abo.getText().toString() + "&medicine=" + PersonalInfoFragment.tab1_medicine.getText().toString()
                         + "&allergy=" + PersonalInfoFragment.tab1_allergy.getText().toString() + "&history=" + PersonalInfoFragment.tab1_history.getText().toString() + "&sleeptime=" + PersonalInfoFragment.tab1_sleepTime.getText().toString()
                         + "&dailystride=" + PersonalInfoFragment.tab1_dailyStride.getText().toString() + "&date=" + currentDateTime.toString());
 
 
-
                 FragmentTransaction transaction = getFragmentManager().beginTransaction();
                 transaction.replace(R.id.root, new EditedPersonalInfoFragment());
-                transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+//                transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
                 transaction.addToBackStack(null);
                 transaction.commit();
-
-                //Toast.makeText(getContext(), "정상적으로 저장 되었습니다", Toast.LENGTH_SHORT).show();
-
             }
         });
 
@@ -139,6 +135,33 @@ public class PersonalInfoFragment extends Fragment {
         return view;
     }
 
+    private void setInformationIfExist() {
+        if(!Person.d_height.equals("-1")) {
+            tab1_height.setText(Person.d_height, TextView.BufferType.EDITABLE);
+        }
+        if(!Person.d_weight.equals("-1")) {
+            tab1_weight.setText(Person.d_weight,TextView.BufferType.EDITABLE);
+        }
+        if(!Person.d_abo.equals("-1")) {
+            tab1_abo.setText(Person.d_abo,TextView.BufferType.EDITABLE);
+        }
+        if(!Person.d_medicine.equals("-1")) {
+            tab1_medicine.setText(Person.d_medicine,TextView.BufferType.EDITABLE);
+        }
+        if(!Person.d_allergy.equals("-1")) {
+            tab1_allergy.setText(Person.d_allergy,TextView.BufferType.EDITABLE);
+        }
+        if(!Person.d_history.equals("-1")) {
+            tab1_history.setText(Person.d_history,TextView.BufferType.EDITABLE);
+        }
+        if(!Person.d_sleeptime.equals("-1")) {
+            tab1_sleepTime.setText(Person.d_sleeptime,TextView.BufferType.EDITABLE);
+        }
+        if(!Person.d_dailystride.equals("-1")) {
+            tab1_dailyStride.setText(Person.d_dailystride,TextView.BufferType.EDITABLE);
+        }
+    }
+
 
     public class HttpAsyncTask extends AsyncTask<String, Void, String> {
 
@@ -149,12 +172,40 @@ public class PersonalInfoFragment extends Fragment {
 
         @Override
         protected void onPostExecute(String result) {
-            Log.d("check result", result);
+//            Log.d("check result", result);
             if (result.equals("Did not work!")) {
                 Toast.makeText(context, "데이터 저장 실패, 인터넷 연결을 확인하세요.", Toast.LENGTH_SHORT).show();
             } else {
                 //TODO : 전송완료 후 할일
                 Toast.makeText(context, "데이터가 저장되었습니다.", Toast.LENGTH_SHORT).show();
+
+                try {
+                    JSONObject jobj = new JSONObject(result);
+
+                    Person.d_height = jobj.getString("height");
+                    Person.d_weight = jobj.getString("weight");
+                    Person.d_abo = jobj.getString("abo");
+                    Person.d_medicine = jobj.getString("medicine");
+                    Person.d_allergy = jobj.getString("allergy");
+                    Person.d_history = jobj.getString("history");
+                    Person.d_sleeptime = jobj.getString("sleeptime");
+                    Person.d_dailystride = jobj.getString("dailystride");
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+//                Person.name = jobj.getString("name");
+//                Person.birth.setYear(Integer.parseInt(jobj.getString("birth").substring(0, 4)));
+//
+//                tab1_abo.setText();
+//                tab1_allergy = (EditText) view.findViewById(R.id.tab1_allergy);
+//                tab1_dailyStride = (EditText) view.findViewById(R.id.tab1_dailyStride);
+//                tab1_height = (EditText) view.findViewById(R.id.tab1_height);
+//                tab1_history = (EditText) view.findViewById(R.id.tab1_history);
+//                tab1_medicine = (EditText) view.findViewById(R.id.tab1_medicine);
+//                tab1_sleepTime = (EditText) view.findViewById(R.id.tab1_sleepTime);
+//                tab1_weight = (EditText) view.findViewById(R.id.tab1_weight);
+//                tab1_height.setNextFocusDownId(R.id.tab1_weight);
             }
         }
     }
@@ -202,9 +253,9 @@ public class PersonalInfoFragment extends Fragment {
                 result = "Did not work!";
 
         } catch (Exception e) {
-            Log.d("InputStream", e.getLocalizedMessage());
+//            Log.d("InputStream", e.getLocalizedMessage());
         }
-        Log.d("http", result);
+//        Log.d("http", result);
 
         // 11. return result
         return result;
@@ -218,7 +269,6 @@ public class PersonalInfoFragment extends Fragment {
         inputStream.close();
         return result;
     }
-
 
 
 }
