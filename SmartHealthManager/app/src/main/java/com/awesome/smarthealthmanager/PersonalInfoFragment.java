@@ -93,15 +93,18 @@ public class PersonalInfoFragment extends Fragment {
             public void onClick(View v) {
                 long now = System.currentTimeMillis();
                 Date date = new Date(now);
-                SimpleDateFormat sdfNow = new SimpleDateFormat("yyyy-MM-dd");
+                SimpleDateFormat sdfNow = new SimpleDateFormat("0yyyy-MM-dd");
                 String currentDateTime = sdfNow.format(date);
                 Log.d("current time... ",currentDateTime );
 
+                //Log.d("PersonID", Person.userId);
                 //TODO : EditText에 적혀있는 내용을 서버로 옮겨야함
-                new HttpAsyncTask().execute("http://igrus.mireene.com/applogin/personInfo.php/?userid=" + Person.userId + "&height=" + PersonalInfoFragment.tab1_height.getText().toString()
+                    new HttpAsyncTask().execute("http://igrus.mireene.com/applogin/personInfo.php/?userid=" + Person.userId + "&height=" + PersonalInfoFragment.tab1_height.getText().toString()
                         + "&weight=" + PersonalInfoFragment.tab1_weight.getText().toString() + "&abo=" + PersonalInfoFragment.tab1_abo.getText().toString() + "&medicine=" + PersonalInfoFragment.tab1_medicine.getText().toString()
                         + "&allergy=" + PersonalInfoFragment.tab1_allergy.getText().toString() + "&history=" + PersonalInfoFragment.tab1_history.getText().toString() + "&sleeptime=" + PersonalInfoFragment.tab1_sleepTime.getText().toString()
                         + "&dailystride=" + PersonalInfoFragment.tab1_dailyStride.getText().toString() + "&date=" + currentDateTime.toString());
+
+
 
                 FragmentTransaction transaction = getFragmentManager().beginTransaction();
                 transaction.replace(R.id.root, new EditedPersonalInfoFragment());

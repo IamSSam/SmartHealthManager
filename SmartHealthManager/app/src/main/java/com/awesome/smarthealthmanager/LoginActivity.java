@@ -148,7 +148,7 @@ public class LoginActivity extends AppCompatActivity {
                 Log.e("!", "2");
                 editor.commit();
                 */
-                
+
                 Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                 startActivity(intent);
 
