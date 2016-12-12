@@ -1,6 +1,7 @@
 package com.awesome.smarthealthmanager;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
@@ -78,9 +79,7 @@ public class SignUpActivity extends AppCompatActivity {
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
             }
-
         });
-
 
         Button signUpButton = (Button) findViewById(R.id.signUpButton);
 
@@ -106,8 +105,9 @@ public class SignUpActivity extends AppCompatActivity {
                 } else {
                     // TODO: 회원가입하면 DB에 등록되는 부분. 이 정보들을 서버로 넘겨야함.
                     new HttpAsyncTask().execute("http://igrus.mireene.com/applogin/register.php");
-                    Log.d("Sign up Cliked", "Success");
+                    Log.d("Sign up Clicked", "Success");
                 }
+
 
             }
         });

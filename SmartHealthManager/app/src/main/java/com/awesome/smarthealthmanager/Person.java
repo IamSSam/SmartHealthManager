@@ -19,6 +19,7 @@ public class Person {
     public static String st_main;
     public static int st_scale;
     public static String st_sub;
+    public static String st_comment;
 
     public static float d_height; //detail height
     public static float d_weight;

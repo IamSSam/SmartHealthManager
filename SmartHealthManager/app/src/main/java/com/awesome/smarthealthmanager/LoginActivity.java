@@ -1,11 +1,14 @@
 package com.awesome.smarthealthmanager;
 
 import android.annotation.TargetApi;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -49,10 +52,18 @@ public class LoginActivity extends AppCompatActivity {
     private AutoCompleteTextView mEmailView;
     private EditText mPasswordView;
     private View mLoginFormView;
+    private SharedPreferences.Editor editor;
+    private SharedPreferences setting;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        /*
+        setting = getSharedPreferences("pref", MODE_PRIVATE) ;
+        if(setting.getBoolean("auto", false)){
+            startActivity(new Intent(LoginActivity.this, MainActivity.class));
+        }
+        */
         setContentView(R.layout.activity_login);
 
         // Set up the login form.
@@ -111,25 +122,33 @@ public class LoginActivity extends AppCompatActivity {
             return POST(urls[0]);
         }
 
-                @Override
-                protected void onPostExecute(String result) {
-                    if (result.equals("Did not work!")) {
-                        Toast.makeText(LoginActivity.this, "로그인 실패 인터넷 연결을 확인하세요", Toast.LENGTH_SHORT).show();
-                    }
-                    try {
+        @Override
+        protected void onPostExecute(String result) {
+            if (result.equals("Did not work!")) {
+                Toast.makeText(LoginActivity.this, "로그인 실패 인터넷 연결을 확인하세요", Toast.LENGTH_SHORT).show();
+            }
+            try {
 
-                        JSONObject jobj = new JSONObject(result);
-                        Person.name = jobj.getString("name");
-                        Person.birth.setYear(Integer.parseInt(jobj.getString("birth").substring(0, 4)));
-                        Person.birth.setMonth(Integer.parseInt(jobj.getString("birth").substring(4, 6)));
-                        Person.birth.setDate(Integer.parseInt(jobj.getString("birth").substring(6, 8)));
+                JSONObject jobj = new JSONObject(result);
+                Person.name = jobj.getString("name");
+                Person.birth.setYear(Integer.parseInt(jobj.getString("birth").substring(0, 4)));
+                Person.birth.setMonth(Integer.parseInt(jobj.getString("birth").substring(4, 6)));
+                Person.birth.setDate(Integer.parseInt(jobj.getString("birth").substring(6, 8)));
 
 
-                        Person.phonenumber = jobj.getString("phonenumber");
-                        Person.sex = jobj.getInt("sex");
+                Person.phonenumber = jobj.getString("phonenumber");
+                Person.sex = jobj.getInt("sex");
 
-                        Log.d("check", "" + Person.name + " " + Person.phonenumber + " " + Person.sex + " ");
+                Log.d("check", "" + Person.name + " " + Person.phonenumber + " " + Person.sex + " ");
 
+                /*
+                Log.e("!", "1");
+                editor = setting.edit();
+                editor.putBoolean("auto", true);
+                Log.e("!", "2");
+                editor.commit();
+                */
+                
                 Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                 startActivity(intent);
 

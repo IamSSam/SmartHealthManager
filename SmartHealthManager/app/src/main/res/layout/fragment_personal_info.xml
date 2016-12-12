@@ -84,7 +84,7 @@
                     android:layout_marginLeft="10dp"
                     android:layout_weight="1"
                     android:hint="키(cm)"
-                    android:inputType="number"
+                    android:inputType="numberDecimal"
                     android:maxLength="3" />
 
                 <EditText
@@ -93,7 +93,7 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:hint="몸무게(kg)"
-                    android:inputType="number"
+                    android:inputType="numberDecimal"
                     android:maxLength="3" />
             </LinearLayout>
 
@@ -143,7 +143,7 @@
                     android:layout_weight="1"
                     android:hint="복약목록"
                     android:inputType="text"
-                    android:maxLength="5" />
+                    android:maxLength="20" />
 
             </LinearLayout>
 
@@ -167,7 +167,7 @@
                     android:layout_weight="1"
                     android:hint="알러지/금기목록"
                     android:inputType="text"
-                    android:maxLength="3" />
+                    android:maxLength="20" />
             </LinearLayout>
 
             <LinearLayout
@@ -213,7 +213,7 @@
                     android:layout_marginLeft="10dp"
                     android:layout_weight="1"
                     android:hint="수면시간"
-                    android:inputType="text"
+                    android:inputType="numberDecimal"
                     android:maxLength="2" />
 
 
@@ -238,7 +238,7 @@
                     android:layout_marginLeft="10dp"
                     android:layout_weight="1"
                     android:hint="일일 걸음수"
-                    android:inputType="text"
+                    android:inputType="numberDecimal"
                     android:maxLength="5" />
             </LinearLayout>
         </LinearLayout>
