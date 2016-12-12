@@ -214,12 +214,13 @@
             android:orientation="vertical">
 
             <EditText
+                android:id="@+id/symptom_comment"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginTop="5dp"
                 android:layout_marginBottom="5dp"
+                android:layout_marginTop="5dp"
                 android:hint="의사에게 하고싶은말을 적어주세요."
-                android:text=""
+                android:inputType="text"
                 android:textColor="#000000"
                 android:textSize="15sp"
                 android:textStyle="bold" />

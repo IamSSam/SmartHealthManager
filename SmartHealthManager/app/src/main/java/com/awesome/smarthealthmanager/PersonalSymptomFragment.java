@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.SeekBar;
 import android.widget.TextView;
@@ -52,6 +53,8 @@ public class PersonalSymptomFragment extends Fragment implements View.OnClickLis
     private int current_position;
     private int tmp_st_scale;
     private String tmp_st_sub = "";
+    private String st_comment = "";
+    private EditText tmp_st_comment;
     private Dialog levelDialog;
     private Dialog moreDialog;
     HttpAsyncTask httpAsyncTask;
@@ -156,13 +159,13 @@ public class PersonalSymptomFragment extends Fragment implements View.OnClickLis
         find_hospital = (Button) levelDialog.findViewById(R.id.find_hospital);
 
         more_confirm = (Button) moreDialog.findViewById(R.id.more_confirm);
+        more_confirm.setOnClickListener(this);
 
         symptom_main_btn1.setOnClickListener(this);
         symptom_main_btn2.setOnClickListener(this);
         symptom_main_btn3.setOnClickListener(this);
         find_hospital.setOnClickListener(this);
 
-        more_confirm.setOnClickListener(this);
 
         /* SeekBar 부분, 통증 선택하기 */
 /*
@@ -216,9 +219,6 @@ public class PersonalSymptomFragment extends Fragment implements View.OnClickLis
         });
 
         Button okBtn = (Button) levelDialog.findViewById(R.id.level_cancel);
-
-        //       Button level_more = (Button) levelDialog.findViewById(R.id.level_more);
-
         Button goDialogBtn;
 
         okBtn.setOnClickListener(new View.OnClickListener() {
@@ -259,6 +259,7 @@ public class PersonalSymptomFragment extends Fragment implements View.OnClickLis
                 tmp_st_main = symptom_main_btn3.getText().toString();
                 moreDialog.show();
                 break;
+
             case R.id.find_hospital:
                 int permissionLocation = ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION);
                 if (permissionLocation == PackageManager.PERMISSION_DENIED) {
@@ -271,16 +272,20 @@ public class PersonalSymptomFragment extends Fragment implements View.OnClickLis
                         st_place[current_position][1]);
                 levelDialog.dismiss();
                 break;
+
             case R.id.more_confirm:
                 levelDialog.dismiss();
                 Person.st_main = tmp_st_main;
                 Person.st_place = st_place[current_position][0];
                 Person.st_scale = tmp_st_scale;
                 Person.st_sub = tmp_st_sub;
+                //Person.st_comment = ((EditText)v.findViewById(R.id.symptom_comment)).getText().toString();
+
                 httpAsyncTask = new HttpAsyncTask();
                 httpAsyncTask.execute("http://igrus.mireene.com/applogin/stchange.php");
                 moreDialog.dismiss();
                 break;
+
             default:
                 break;
         }
@@ -288,8 +293,7 @@ public class PersonalSymptomFragment extends Fragment implements View.OnClickLis
 
     /***
      * 권한요청 응답 처리하기
-     *
-     * **/
+     **/
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
@@ -306,13 +310,11 @@ public class PersonalSymptomFragment extends Fragment implements View.OnClickLis
                         }
                     }
                     break;
-
                 }
             default:
                 break;
         }
     }
-
 
     public class HttpAsyncTask extends AsyncTask<String, Void, String> {
 
@@ -323,9 +325,9 @@ public class PersonalSymptomFragment extends Fragment implements View.OnClickLis
 
         @Override
         protected void onPostExecute(String result) {
-            Log.d("checkresult2", result);
+            Log.d("check result", result);
             if (result.equals("Did not work!")) {
-                Toast.makeText(context, "로그인 실패 인터넷 연결을 확인하세요.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "데이터 전송 실패, 인터넷 연결을 확인하세요.", Toast.LENGTH_SHORT).show();
             } else {
                 //TODO : 전송완료 후 할일
                 Toast.makeText(context, "저장되었습니다.", Toast.LENGTH_SHORT).show();
@@ -358,12 +360,15 @@ public class PersonalSymptomFragment extends Fragment implements View.OnClickLis
             // ObjectMapper mapper = new ObjectMapper();
             // json = mapper.writeValueAsString(person);
 
-            List<NameValuePair> nameValuePair = new ArrayList<NameValuePair>(6);
+            List<NameValuePair> nameValuePair = new ArrayList<NameValuePair>(7);
             nameValuePair.add(new BasicNameValuePair("userid", Person.userId));
             nameValuePair.add(new BasicNameValuePair("st_place", Person.st_place));
             nameValuePair.add(new BasicNameValuePair("st_main", Person.st_main));
             nameValuePair.add(new BasicNameValuePair("st_scale", " " + Person.st_scale));
             nameValuePair.add(new BasicNameValuePair("st_sub", Person.st_sub + " "));
+            //TODO: Send st_comment data from android to DB
+            //nameValuePair.add(new BasicNameValuePair("st_comment", Person.st_comment + " "));
+
             // 5. set json to StringEntity
             //StringEntity se = new StringEntity(json);
 
