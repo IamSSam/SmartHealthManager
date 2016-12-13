@@ -15,6 +15,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.SeekBar;
@@ -49,11 +51,12 @@ public class PersonalSymptomFragment extends Fragment implements View.OnClickLis
     Button symptom_main_btn3;
     Button find_hospital;
     Button more_confirm;
+
     private String tmp_st_main;
     private int current_position;
     private int tmp_st_scale;
     private String tmp_st_sub = "";
-    private String st_comment = "";
+//    private String st_comment = "";
     private EditText tmp_st_comment;
     private Dialog levelDialog;
     private Dialog moreDialog;
@@ -167,6 +170,9 @@ public class PersonalSymptomFragment extends Fragment implements View.OnClickLis
         find_hospital.setOnClickListener(this);
 
 
+        tmp_st_comment = (EditText) moreDialog.findViewById(R.id.symptom_comment);
+        tmp_st_scale = 10;
+
         /* SeekBar 부분, 통증 선택하기 */
 /*
         final TextView levelTxt = (TextView) levelDialog.findViewById(R.id.level_txt);
@@ -279,7 +285,7 @@ public class PersonalSymptomFragment extends Fragment implements View.OnClickLis
                 Person.st_place = st_place[current_position][0];
                 Person.st_scale = tmp_st_scale;
                 Person.st_sub = tmp_st_sub;
-                //Person.st_comment = ((EditText)v.findViewById(R.id.symptom_comment)).getText().toString();
+                Person.st_comment = tmp_st_comment.getText().toString();
 
                 httpAsyncTask = new HttpAsyncTask();
                 httpAsyncTask.execute("http://igrus.mireene.com/applogin/stchange.php");

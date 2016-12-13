@@ -120,7 +120,10 @@
                 <CheckBox
                     android:layout_width="30dp"
                     android:layout_height="20dp"
-                    android:layout_marginLeft="20dp" />
+                    android:layout_marginLeft="20dp"
+                    android:duplicateParentState="false"
+                    android:checked="false"
+                    android:id="@+id/symptom_sub_nocheck1" />
 
             </LinearLayout>
         </LinearLayout>
@@ -156,7 +159,8 @@
                 <CheckBox
                     android:layout_width="30dp"
                     android:layout_height="20dp"
-                    android:layout_marginLeft="20dp" />
+                    android:layout_marginLeft="20dp"
+                    android:id="@+id/symptom_sub_nocheck2" />
 
             </LinearLayout>
         </LinearLayout>

@@ -98,7 +98,6 @@ public class PersonalInfoFragment extends Fragment {
 //                Log.d("current time... ", currentDateTime);
 
                 //Log.d("PersonID", Person.userId);
-                //TODO : EditText에 적혀있는 내용을 서버로 옮겨야함
                 new HttpAsyncTask().execute("http://igrus.mireene.com/applogin/personInfo.php/?userid=" + Person.userId + "&height=" + PersonalInfoFragment.tab1_height.getText().toString()
                         + "&weight=" + PersonalInfoFragment.tab1_weight.getText().toString() + "&abo=" + PersonalInfoFragment.tab1_abo.getText().toString() + "&medicine=" + PersonalInfoFragment.tab1_medicine.getText().toString()
                         + "&allergy=" + PersonalInfoFragment.tab1_allergy.getText().toString() + "&history=" + PersonalInfoFragment.tab1_history.getText().toString() + "&sleeptime=" + PersonalInfoFragment.tab1_sleepTime.getText().toString()
@@ -107,7 +106,7 @@ public class PersonalInfoFragment extends Fragment {
 
                 FragmentTransaction transaction = getFragmentManager().beginTransaction();
                 transaction.replace(R.id.root, new EditedPersonalInfoFragment());
-//                transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+                transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
                 transaction.addToBackStack(null);
                 transaction.commit();
             }

@@ -224,13 +224,13 @@ public class LoginActivity extends AppCompatActivity {
                 Person.d_sleeptime = jobj.getString("sleeptime");
                 Person.d_dailystride = jobj.getString("dailystride");
 
-                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                startActivity(intent);
 
             } catch (JSONException e) {
-                Toast.makeText(LoginActivity.this, "정보가져오기 실패", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(LoginActivity.this, "정보가져오기 실패", Toast.LENGTH_SHORT).show();
                 e.printStackTrace();
             }
+            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+            startActivity(intent);
         }
     }
 
