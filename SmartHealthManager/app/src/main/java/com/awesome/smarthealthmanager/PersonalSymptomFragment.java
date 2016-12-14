@@ -51,11 +51,13 @@ public class PersonalSymptomFragment extends Fragment implements View.OnClickLis
     Button symptom_main_btn3;
     Button find_hospital;
     Button more_confirm;
-
+    CheckBox detail_symptom_cb1;
+    CheckBox detail_symptom_cb2;
+    CheckBox detail_symptom_cb3;
     private String tmp_st_main;
     private int current_position;
     private int tmp_st_scale;
-    private String tmp_st_sub = "";
+    private StringBuilder tmp_st_sub;
 //    private String st_comment = "";
     private EditText tmp_st_comment;
     private Dialog levelDialog;
@@ -169,6 +171,9 @@ public class PersonalSymptomFragment extends Fragment implements View.OnClickLis
         symptom_main_btn3.setOnClickListener(this);
         find_hospital.setOnClickListener(this);
 
+        detail_symptom_cb1 = (CheckBox) moreDialog.findViewById(R.id.checkbox_btn1);
+        detail_symptom_cb2 = (CheckBox) moreDialog.findViewById(R.id.checkbox_btn2);
+        detail_symptom_cb3 = (CheckBox) moreDialog.findViewById(R.id.checkbox_btn3);
 
         tmp_st_comment = (EditText) moreDialog.findViewById(R.id.symptom_comment);
         tmp_st_scale = 10;
@@ -281,10 +286,15 @@ public class PersonalSymptomFragment extends Fragment implements View.OnClickLis
 
             case R.id.more_confirm:
                 levelDialog.dismiss();
+                tmp_st_sub = new StringBuilder();
+                tmp_st_sub.append(detail_symptom_cb1.isChecked()? "true " : "false ");
+                tmp_st_sub.append(detail_symptom_cb2.isChecked()? "true " : "false ");
+                tmp_st_sub.append(detail_symptom_cb3.isChecked()? "true " : "false ");
+
                 Person.st_main = tmp_st_main;
                 Person.st_place = st_place[current_position][0];
                 Person.st_scale = tmp_st_scale;
-                Person.st_sub = tmp_st_sub;
+                Person.st_sub = tmp_st_sub.toString();
                 Person.st_comment = tmp_st_comment.getText().toString();
 
                 httpAsyncTask = new HttpAsyncTask();

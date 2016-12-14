@@ -175,7 +175,7 @@ public class SignUpActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(String result) {
             if (result.equals("Did not work!")) {
-                Toast.makeText(SignUpActivity.this, "로그인 실패 인터넷 연결을 확인하세요", Toast.LENGTH_SHORT).show();
+                Toast.makeText(SignUpActivity.this, "실패! 인터넷 연결을 확인하세요", Toast.LENGTH_SHORT).show();
             }
             try {
                 JSONObject jobj = new JSONObject(result);
@@ -183,9 +183,9 @@ public class SignUpActivity extends AppCompatActivity {
                     Toast.makeText(SignUpActivity.this, "이미 있는 아이디이거나 서버 오류입니다.", Toast.LENGTH_SHORT).show();
                 } else {
                     Toast.makeText(SignUpActivity.this, "회원가입에 성공하였습니다.", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(SignUpActivity.this, LoginActivity.class);
+                    startActivity(intent);
                 }
-                Intent intent = new Intent(SignUpActivity.this, LoginActivity.class);
-                startActivity(intent);
 
             } catch (JSONException e) {
                 e.printStackTrace();

@@ -53,7 +53,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
-                android:layout_weight="1"
+                android:layout_weight="2"
                 android:text="추가질문"
                 android:textColor="#000000"
                 android:textSize="18sp"
@@ -62,7 +62,7 @@
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
+                android:layout_gravity="center_vertical|center_horizontal"
                 android:layout_weight="1">
 
                 <Button
@@ -70,18 +70,8 @@
                     android:layout_height="20dp"
                     android:layout_margin="2dp"
                     android:layout_weight="2"
-                    android:background="#4169E1"
-                    android:text="YES"
-                    android:textColor="#ffffff"
-                    android:textSize="13sp" />
-
-                <Button
-                    android:layout_width="0dp"
-                    android:layout_height="20dp"
-                    android:layout_margin="2dp"
-                    android:layout_weight="2"
-                    android:background="#4169E1"
-                    android:text="NO"
+                    android:background="#0293a6"
+                    android:text="CHECK"
                     android:textColor="#ffffff"
                     android:textSize="13sp" />
 
@@ -92,14 +82,14 @@
             android:layout_width="300dp"
             android:layout_height="0dp"
             android:layout_marginTop="5dp"
-            android:layout_weight="1"
+            android:layout_weight="0.99"
             android:gravity="center"
             android:orientation="horizontal">
 
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:layout_weight="2"
                 android:text="● 머리를 부딪친적이 있습니까?"
                 android:textColor="#000000"
                 android:textSize="15sp"
@@ -112,18 +102,9 @@
                 android:gravity="center">
 
                 <CheckBox
-                    android:id="@+id/symptom_sub_yescheck1"
+                    android:id="@+id/checkbox_btn1"
                     android:layout_width="30dp"
-                    android:layout_height="20dp"
-                    android:layout_marginRight="20dp" />
-
-                <CheckBox
-                    android:layout_width="30dp"
-                    android:layout_height="20dp"
-                    android:layout_marginLeft="20dp"
-                    android:duplicateParentState="false"
-                    android:checked="false"
-                    android:id="@+id/symptom_sub_nocheck1" />
+                    android:layout_height="20dp"/>
 
             </LinearLayout>
         </LinearLayout>
@@ -138,7 +119,7 @@
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:layout_weight="2"
                 android:text="● 두통이나 구토를 동반합니까?"
                 android:textColor="#000000"
                 android:textSize="15sp"
@@ -150,17 +131,11 @@
                 android:layout_weight="1"
                 android:gravity="center">
 
-                <CheckBox
-                    android:id="@+id/symptom_sub_yescheck2"
-                    android:layout_width="30dp"
-                    android:layout_height="20dp"
-                    android:layout_marginRight="20dp" />
 
                 <CheckBox
+                    android:id="@+id/checkbox_btn2"
                     android:layout_width="30dp"
-                    android:layout_height="20dp"
-                    android:layout_marginLeft="20dp"
-                    android:id="@+id/symptom_sub_nocheck2" />
+                    android:layout_height="20dp"/>
 
             </LinearLayout>
         </LinearLayout>
@@ -175,7 +150,7 @@
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:layout_weight="2"
                 android:text="● 맥박이 뛰듯이 아픕니까?"
                 android:textColor="#000000"
                 android:textSize="15sp"
@@ -185,24 +160,15 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-
                 android:gravity="center">
 
                 <CheckBox
-                    android:id="@+id/symptom_sub_yescheck3"
+                    android:id="@+id/checkbox_btn3"
                     android:layout_width="30dp"
-                    android:layout_height="20dp"
-                    android:layout_marginRight="20dp" />
-
-                <CheckBox
-                    android:layout_width="30dp"
-                    android:layout_height="20dp"
-                    android:layout_marginLeft="20dp" />
+                    android:layout_height="20dp"/>
 
             </LinearLayout>
         </LinearLayout>
-
-
     </LinearLayout>
 
     <LinearLayout
@@ -235,7 +201,7 @@
             android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:layout_margin="2dp"
-            android:background="#4169E1"
+            android:background="#0293a6"
             android:text="확인"
             android:textColor="#FFFFFF"
             android:textSize="15sp"
