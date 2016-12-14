@@ -30,7 +30,6 @@
 
         <activity
             android:name=".MainActivity"
-            android:label="SHM"
             android:theme="@style/AppTheme.NoActionBar" />
 
         <activity
@@ -40,12 +39,20 @@
 
         <activity
             android:name=".SignUpActivity"
-            android:windowSoftInputMode="adjustPan|stateAlwaysHidden" />
+            android:windowSoftInputMode="adjustPan|stateAlwaysHidden"
+            android:label="회원가입"
+            />
 
         <activity
             android:name=".FindHospitalActivity"
-            android:windowSoftInputMode="adjustPan">
-        </activity>
+            android:windowSoftInputMode="adjustPan"
+            android:label="병원찾기"
+            />
+
+        <activity
+            android:name=".AuthdoctorActivity"
+            android:label="의사권한요청"
+            />
     </application>
 
 </manifest>

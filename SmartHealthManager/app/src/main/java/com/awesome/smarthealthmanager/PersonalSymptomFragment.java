@@ -147,11 +147,11 @@ public class PersonalSymptomFragment extends Fragment implements View.OnClickLis
             @Override
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
-                Toast.makeText(getActivity(),
-                        "position:" + position + " , " +
-                                "krplacename: " + st_place[position][0] + " , " +
-                                "hospital: " + st_place[position][1],
-                        Toast.LENGTH_SHORT).show();
+//                Toast.makeText(getActivity(),
+//                        "position:" + position + " , " +
+//                                "krplacename: " + st_place[position][0] + " , " +
+//                                "hospital: " + st_place[position][1],
+//                        Toast.LENGTH_SHORT).show();
                 ((TextView) levelDialog.findViewById(R.id.evaluation_title)).setText(st_place[position][0]);
                 current_position = position;
                 levelDialog.show();

@@ -10,7 +10,9 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 
 public class MainActivity extends AppCompatActivity {
@@ -59,19 +61,16 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-
-    /*
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        Log.d("Reached to" , "AuthdoctorActivity");
         int id = item.getItemId();
         if (id == R.id.action_settings) {
             Intent intent = new Intent(this, AuthdoctorActivity.class);
             startActivity(intent);
-            //TODO : 임시로 발표용으로 인증화면 만듬
             return true;
         }
 
         return super.onOptionsItemSelected(item);
     }
-    */
 }
