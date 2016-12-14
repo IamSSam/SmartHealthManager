@@ -19,7 +19,6 @@ public class FindHospitalActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        this.findHospitalViewActive = false;
     }
 
     @Override

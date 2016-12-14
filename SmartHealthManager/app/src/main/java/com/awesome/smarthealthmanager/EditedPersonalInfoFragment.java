@@ -65,8 +65,7 @@ public class EditedPersonalInfoFragment extends Fragment {
         edit_weight.setText(PersonalInfoFragment.tab1_weight.getText().toString());
 
         edit_abo = (TextView) view.findViewById(R.id.tab1_abo_edited);
-//        edit_abo.setText(PersonalInfoFragment.tab1_abo.getText().toString());
-        edit_abo.setText(Person.d_abo);
+        edit_abo.setText(PersonalInfoFragment.tab1_abo.getText().toString());
 
         edit_medicine = (TextView) view.findViewById(R.id.tab1_medicine_edited);
         edit_medicine.setText(PersonalInfoFragment.tab1_medicine.getText().toString());

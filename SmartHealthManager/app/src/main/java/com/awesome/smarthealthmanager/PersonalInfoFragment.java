@@ -59,6 +59,8 @@ public class PersonalInfoFragment extends Fragment {
     static EditText tab1_sleepTime;
     static EditText tab1_weight;
 
+    String currentDateTime;
+
     @Override
     public View onCreateView(final LayoutInflater inflater, final ViewGroup container, Bundle savedInstanceState) {
         context = getContext();
@@ -94,10 +96,8 @@ public class PersonalInfoFragment extends Fragment {
                 long now = System.currentTimeMillis();
                 Date date = new Date(now);
                 SimpleDateFormat sdfNow = new SimpleDateFormat("0yyyy-MM-dd");
-                String currentDateTime = sdfNow.format(date);
-//                Log.d("current time... ", currentDateTime);
+                currentDateTime = sdfNow.format(date);
 
-                //Log.d("PersonID", Person.userId);
                 new HttpAsyncTask().execute("http://igrus.mireene.com/applogin/personInfo.php/?userid=" + Person.userId + "&height=" + PersonalInfoFragment.tab1_height.getText().toString()
                         + "&weight=" + PersonalInfoFragment.tab1_weight.getText().toString() + "&abo=" + PersonalInfoFragment.tab1_abo.getText().toString() + "&medicine=" + PersonalInfoFragment.tab1_medicine.getText().toString()
                         + "&allergy=" + PersonalInfoFragment.tab1_allergy.getText().toString() + "&history=" + PersonalInfoFragment.tab1_history.getText().toString() + "&sleeptime=" + PersonalInfoFragment.tab1_sleepTime.getText().toString()
@@ -181,6 +181,8 @@ public class PersonalInfoFragment extends Fragment {
                 try {
                     JSONObject jobj = new JSONObject(result);
 
+                    Log.d("RESULT" , result);
+
                     Person.d_height = jobj.getString("height");
                     Person.d_weight = jobj.getString("weight");
                     Person.d_abo = jobj.getString("abo");
@@ -189,8 +191,8 @@ public class PersonalInfoFragment extends Fragment {
                     Person.d_history = jobj.getString("history");
                     Person.d_sleeptime = jobj.getString("sleeptime");
                     Person.d_dailystride = jobj.getString("dailystride");
-
                 } catch (JSONException e) {
+                    Log.d("ERROR" , result);
                     e.printStackTrace();
                 }
 //                Person.name = jobj.getString("name");
