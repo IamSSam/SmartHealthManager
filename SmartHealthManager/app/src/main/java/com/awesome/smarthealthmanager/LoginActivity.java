@@ -212,7 +212,7 @@ public class LoginActivity extends AppCompatActivity {
                 Toast.makeText(LoginActivity.this, "로그인 실패 인터넷 연결을 확인하세요", Toast.LENGTH_SHORT).show();
             }
             try {
-                Toast.makeText(LoginActivity.this, result, Toast.LENGTH_LONG).show();
+//                Toast.makeText(LoginActivity.this, result, Toast.LENGTH_LONG).show();
                 Log.d("Result", result);
                 JSONObject jobj = new JSONObject(result);
                 Person.d_height = jobj.getString("height");
