@@ -131,6 +131,8 @@ public class LoginActivity extends AppCompatActivity {
                 Person.sex = jobj.getInt("sex");
 
                 Log.d("check", "" + Person.name + " " + Person.phonenumber + " " + Person.sex + " ");
+                Log.d("check", "" + Person.d_weight + " " + Person.d_height + " " + Person.d_history + " ");
+                Person.initPerson();
                 new GetInfoAsyncTask().execute("http://igrus.mireene.com/applogin/getPersonInfo.php/?userid=" + Person.userId);
             } catch (JSONException e) {
                 Toast.makeText(LoginActivity.this, "로그인 실패", Toast.LENGTH_SHORT).show();

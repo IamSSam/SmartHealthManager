@@ -30,4 +30,14 @@ public class Person {
     public static String d_sleeptime = "-1";
     public static String d_dailystride = "-1";
 
+    public static void initPerson() {
+        d_height = "-1";
+        d_weight = "-1";
+        d_abo = "-1";
+        d_medicine = "-1";
+        d_allergy = "-1";
+        d_history = "-1";
+        d_sleeptime = "-1";
+        d_dailystride = "-1";
+    }
 }
