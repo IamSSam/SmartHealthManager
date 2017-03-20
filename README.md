@@ -16,4 +16,4 @@
 ### Author
 [Yoonjae Cho](https://github.com/Yoon-jae),
 [Eunsik Park](https://github.com/iamssam),
-[Sumin Jeagl](https://github.com/suminjegal)
+[Sumin Jegal](https://github.com/suminjegal)
